@@ -170,67 +170,69 @@ const AdvertisementDetailsScreen = () => {
           </View>
         </View>
 
-        {isEditing ? (
-          <View style={styles.editContainer}>
-            <TextInput
-              style={styles.input}
-              value={updatedAd.title}
-              onChangeText={(text) =>
-                setUpdatedAd({ ...updatedAd, title: text })
-              }
-              placeholder="Title"
-            />
-            <TextInput
-              style={styles.input}
-              value={updatedAd.description}
-              onChangeText={(text) =>
-                setUpdatedAd({ ...updatedAd, description: text })
-              }
-              placeholder="Description"
-            />
-            <TextInput
-              style={styles.input}
-              value={updatedAd.price.toString()}
-              onChangeText={(text) =>
-                setUpdatedAd({ ...updatedAd, price: parseFloat(text) })
-              }
-              placeholder="Price"
-              keyboardType="numeric"
-            />
-            <Picker
-              selectedValue={selectedStatus}
-              onValueChange={(itemValue) => setSelectedStatus(itemValue)}
-              style={styles.picker}
-            >
-              {advertisementStatuses.map((status) => (
-                <Picker.Item
-                  key={status.id}
-                  label={status.statusName}
-                  value={status.id}
-                />
-              ))}
-            </Picker>
+        {authCtx.email === ad.user.email ? (
+          isEditing ? (
+            <View style={styles.editContainer}>
+              <TextInput
+                style={styles.input}
+                value={updatedAd.title}
+                onChangeText={(text) =>
+                  setUpdatedAd({ ...updatedAd, title: text })
+                }
+                placeholder="Title"
+              />
+              <TextInput
+                style={styles.input}
+                value={updatedAd.description}
+                onChangeText={(text) =>
+                  setUpdatedAd({ ...updatedAd, description: text })
+                }
+                placeholder="Description"
+              />
+              <TextInput
+                style={styles.input}
+                value={updatedAd.price.toString()}
+                onChangeText={(text) =>
+                  setUpdatedAd({ ...updatedAd, price: parseFloat(text) })
+                }
+                placeholder="Price"
+                keyboardType="numeric"
+              />
+              <Picker
+                selectedValue={selectedStatus}
+                onValueChange={(itemValue) => setSelectedStatus(itemValue)}
+                style={styles.picker}
+              >
+                {advertisementStatuses.map((status) => (
+                  <Picker.Item
+                    key={status.id}
+                    label={status.statusName}
+                    value={status.id}
+                  />
+                ))}
+              </Picker>
+              <TouchableOpacity
+                style={styles.updateButton}
+                onPress={handleUpdateAd}
+              >
+                <Text style={styles.updateButtonText}>Update</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.cancelButton}
+                onPress={() => setIsEditing(false)}
+              >
+                <Text style={styles.cancelButtonText}>Cancel</Text>
+              </TouchableOpacity>
+            </View>
+          ) : (
             <TouchableOpacity
-              style={styles.updateButton}
-              onPress={handleUpdateAd}
+              style={styles.editButton}
+              onPress={() => setIsEditing(true)}
             >
-              <Text style={styles.updateButtonText}>Update</Text>
+              <Text style={styles.editButtonText}>Edit Advertisement</Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.cancelButton}
-              onPress={() => setIsEditing(false)}
-            >
-              <Text style={styles.cancelButtonText}>Cancel</Text>
-            </TouchableOpacity>
-          </View>
-        ) : (
-          <TouchableOpacity
-            style={styles.editButton}
-            onPress={() => setIsEditing(true)}
-          >
-            <Text style={styles.editButtonText}>Edit Advertisement</Text>
-          </TouchableOpacity>
-        )}
+          )
+        ) : null}
       </View>
     </ScrollView>
   );
