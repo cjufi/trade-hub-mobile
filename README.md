@@ -1,4 +1,4 @@
-# Trade Hub - mobilna aplikacija koja služi za razmenu stvari preko interneta, preko ovog portala moguća je i prodaja i kupovina.
+# Trade Hub - mobilna aplikacija koja služi za razmenu stvari.
 
 ## Opis ##
 
